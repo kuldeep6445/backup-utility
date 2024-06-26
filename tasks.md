@@ -2,17 +2,18 @@ programs to be installed
     -chrome //
     -brave //
     -spotify //
-    -tilix
-    -obsidian
-    -Jdownloader
-    -vscode
-    -virtualbox
+    -vim //
+    -tilix --
+    -obsidian //
+    -Jdownloader 
+    -vscode //
+    -virtualbox //
     -Qemu vm manager
     -VLC
-    -git
-    -htop
-    -gimp
-    -java
+    -git //
+    -htop //
+    -gimp //
+    -java //
     -tlauncher
     -gnome-tweaks
     -xsel
