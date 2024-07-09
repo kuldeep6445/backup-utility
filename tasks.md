@@ -17,7 +17,7 @@ programs to be installed
     -tlauncher
     -gnome-tweaks //
     -xsel
-    -ghidra
+    -ghidra //
     -burpsuite
     
 Settings
