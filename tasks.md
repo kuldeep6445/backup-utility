@@ -8,14 +8,14 @@ programs to be installed
     -Jdownloader 
     -vscode //
     -virtualbox //
-    -Qemu vm manager
+    -Qemu vm manager //
     -VLC
     -git //
     -htop //
     -gimp //
     -java //
     -tlauncher
-    -gnome-tweaks
+    -gnome-tweaks //
     -xsel
     -ghidra
     -burpsuite
@@ -27,4 +27,5 @@ Settings
     -set mouse speed
     -disable auto brightness
     -copy wallpapers
+    -set sleep timings
     

@@ -1,1 +1,1 @@
-sudo apt install google-chrome-stable
+sudo apt -y install google-chrome-stable
