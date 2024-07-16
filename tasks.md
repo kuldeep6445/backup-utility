@@ -3,7 +3,7 @@ programs to be installed
     -brave //
     -spotify //
     -vim //
-    -tilix --
+    -tilix //
     -obsidian //
     -Jdownloader 
     -vscode //
@@ -16,13 +16,13 @@ programs to be installed
     -java //
     -tlauncher //
     -gnome-tweaks //
-    -xsel
+    -xsel //
     -ghidra //
-    -burpsuite
     
 Settings
     -make text larger in accessibiltiy //
     -copy alias //
+    -copy directories
     -set mouse scrolling
     -set mouse speed
     -disable auto brightness
