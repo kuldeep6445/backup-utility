@@ -22,7 +22,7 @@ programs to be installed
 Settings
     -make text larger in accessibiltiy //
     -copy alias //
-    -copy directories
+    -copy directories //
     -set mouse scrolling
     -set mouse speed
     -disable auto brightness
