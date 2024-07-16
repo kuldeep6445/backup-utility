@@ -9,20 +9,20 @@ programs to be installed
     -vscode //
     -virtualbox //
     -Qemu vm manager //
-    -VLC
+    -VLC //
     -git //
     -htop //
     -gimp //
     -java //
-    -tlauncher
+    -tlauncher //
     -gnome-tweaks //
     -xsel
     -ghidra //
     -burpsuite
     
 Settings
-    -make text larger in accessibiltiy
-    -copy alias
+    -make text larger in accessibiltiy //
+    -copy alias //
     -set mouse scrolling
     -set mouse speed
     -disable auto brightness

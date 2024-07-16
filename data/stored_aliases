@@ -1,0 +1,7 @@
+alias ghidra='bash ~/Documents/Ghidra/ghidraRun'
+alias minecraft='java -jar ~/Documents/TLauncher.jar'
+alias xcopy='xsel --input --clipboard'
+alias xpaste='xsel --output --clipboard'
+alias burp='java -jar /opt/BurpSuiteCommunity/burpsuite_community.jar'
+alias pico='cd ~/Desktop/picoctf/'
+alias pwn='cd ~/Desktop/pwnable.kr/'
