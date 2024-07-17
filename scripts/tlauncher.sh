@@ -1,9 +1,14 @@
 #!/bin/bash
 
+# finding user name
+current_dir=$(pwd)
+owner=$(echo "$current_dir" | cut -d '/' -f3)
+
+curr_path="/home/$owner"
 # Variables
 DOWNLOAD_URL="https://tlauncher.org/jar"
 TEMP_DIR="/tmp/tlauncher_download"
-TARGET_DIR="$HOME/Documents"
+TARGET_DIR="$curr_path/Documents"
 
 # Create temporary directory
 mkdir -p "$TEMP_DIR"
