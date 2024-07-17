@@ -2,8 +2,10 @@ import subprocess
 import os
 from datetime import datetime
 
-fp = open('logs','a')
+# Open a log file for writing logs
+fp = open('logs', 'w')
 
+# Function to list files in a directory
 def list_files(directory):
     file_list = []
     with os.scandir(directory) as entries:
@@ -13,79 +15,102 @@ def list_files(directory):
                 file_list.append(os.path.join(directory, file_name))
     return file_list
 
-#function to run a bash script
+# Custom print function to print messages and store logs in a file
+def custom_print(x):
+    print(x)
+    fp.write('\n' + x)
+
+# Function to run a bash script
 def run_bash_script(script_path):
     try:
-        #running a script
-        result = subprocess.run(['/bin/bash', script_path],check=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        # Running a bash script
+        result = subprocess.run(['/bin/bash', script_path], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         return True
     except subprocess.CalledProcessError as e:
-        print(f"Error occurred while running the script: {e}")
-        print(f"Standard output: {e.stdout.decode()}")
-        print(f"Standard error: {e.stderr.decode()}")
-        fp.writelines(f"Error occurred while running the script: {e}")
-        fp.writelines(f"Standard output: {e.stdout.decode()}")
-        fp.writelines(f"Standard error: {e.stderr.decode()}")
+        # Handling errors if the script fails
+        custom_print(f"Error occurred while running the script: {e}")
+        custom_print(f"Standard output: {e.stdout.decode()}")
+        custom_print(f"Standard error: {e.stderr.decode()}")
     except FileNotFoundError:
-        print(f"The script '{script_path}' was not found.")
-        fp.writelines(f"The script '{script_path}' was not found.")
+        custom_print(f"The script '{script_path}' was not found.")
     except Exception as e:
-        print(f"An unexpected error occurred: {e}")
-        fp.writelines(f"An unexpected error occurred: {e}")
+        custom_print(f"An unexpected error occurred: {e}")
     return False
 
-
+# Function to install general apps using scripts in 'scripts' directory
 def install_general_apps():
-    print("[+] installing general apps")
-    fp.writelines("[+] installing general apps")
-    #getting list of scripts
-    file_list  = list_files('scripts')
-    #running scripts one by one 
+    custom_print("[+] installing general apps")
+    # Getting list of scripts in 'scripts' directory
+    file_list = list_files('scripts')
+    # Running each script one by one
     for script_path in file_list:
-        print(f"[+] installing {script_path[8:-3]}")
-        fp.writelines(f"[+] installing {script_path[8:-3]}")
-        #check if script run was succesfull
+        custom_print(f"[+] installing {script_path[8:-3]}")
+        # Checking if script ran successfully
         if run_bash_script(script_path):
-            print(f"[+] {script_path[8:-3]} installed succesfully")
-            fp.writelines(f"[+] {script_path[8:-3]} installed succesfully")
-    
-    print("\n[+] general apps installation complete")
-    fp.writelines("\n[+] general apps installation complete")
+            custom_print(f"[+] {script_path[8:-3]} installed successfully")
 
+    custom_print("\n[+] general apps installation complete")
 
+# Function to create backup using scripts in 'scripts/backup' directory
 def create_backup():
-    print("\n[+] creating backup")
+    custom_print("\n[+] creating backup")
+    # Getting list of scripts in 'scripts/backup' directory
     script_list = list_files('scripts/backup/')
+    # Running each backup script one by one
     for script_path in script_list:
-        print(f"[+] running {script_path}")
-        fp.writelines(f"[+] running {script_path}")
+        custom_print(f"[+] running {script_path}")
         if run_bash_script(script_path):
-            print(f"[+] script {script_path} ran successfully")
-            fp.writelines(f"[+] script {script_path} ran successfully")
+            custom_print(f"[+] script {script_path} ran successfully")
 
+# Function to restore saved data using scripts in 'scripts/restore' directory
 def restore_saved_data():
-    
-        
+    custom_print("\n[+] restoring saved data")
+    # Getting list of scripts in 'scripts/restore' directory
+    script_list = list_files('scripts/restore/')
+    # Running each restore script one by one
+    for script_path in script_list:
+        custom_print(f"[+] running {script_path}")
+        if run_bash_script(script_path):
+            custom_print(f"[+] script {script_path} ran successfully")
 
-# if __name__ == '__main__':
-#     fp.writelines(datetime.now())
-#     while True:
-#         print("[#] press 1 to install general apps")
-#         print("[#] press 2 to create backup")
-#         print("[#] press 3 to restore saved data")
-#         print("[#] press 4 to exit")
-#         i = int(input())
-#         if i == 1:
-#             install_general_apps()
-#         elif i == 2:
-#             create_backup()
-#         elif i == 3:
-#             restore_saved_data()
-#         elif i == 4:
-#             print("[+] bye")
-#             fp.close()
-#             exit()
-#         else:    
-#             print("[-] please enter correct input")
-#         print('\n\n\n')
+if __name__ == '__main__':
+    # Checking if the script is run as root
+    if os.geteuid() != 0:
+        custom_print("[-] Run the program as root user.")
+        exit()
+    
+    # Clearing the screen
+    os.system("clear")
+    
+    # Writing current date and time to log file
+    fp.write(datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+    
+    # Main loop for user interaction
+    while True:
+        # Displaying options to the user
+        custom_print("[#] press 1 to install general apps")
+        custom_print("[#] press 2 to create backup")
+        custom_print("[#] press 3 to restore saved data")
+        custom_print("[#] press 4 to exit")
         
+        try:
+            # Taking user input for choice
+            i = int(input("Enter your choice: "))
+            
+            # Handling user choices
+            if i == 1:
+                install_general_apps()
+            elif i == 2:
+                create_backup()
+            elif i == 3:
+                restore_saved_data()
+            elif i == 4:
+                custom_print("[+] bye")
+                fp.close()  # Closing the log file
+                exit()  # Exiting the program
+            else:
+                custom_print("[-] Please enter a correct input (1-4).")
+        except ValueError:
+            custom_print("[-] Invalid input. Please enter a number.")
+        
+        custom_print('\n\n\n')  # Adding blank lines for better readability
