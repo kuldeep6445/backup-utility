@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 
 # Open a log file for writing logs
-fp = open('logs', 'w')
+fp = open('logs/logs', 'w')
 
 # Function to list files in a directory
 def list_files(directory):
