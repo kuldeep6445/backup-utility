@@ -1,1 +1,1 @@
-sudo apt install -y htop
+sudo apt -y install htop
