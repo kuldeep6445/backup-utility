@@ -2,9 +2,6 @@ import subprocess
 import os
 from datetime import datetime
 
-# Open a log file for writing logs
-fp = open('logs/logs', 'w')
-
 # Function to list files in a directory
 def list_files(directory):
     file_list = []
@@ -53,6 +50,11 @@ def install_general_apps():
 
 # Function to create backup using scripts in 'scripts/backup' directory
 def create_backup():
+    #check if data/dir exists or not
+    if not os.path.isdir('data/dir'):
+        print("[-] data/dir not found")
+        print("[+] creating data/dir")
+        os.system("mkdir data/dir")
     custom_print("\n[+] creating backup")
     # Getting list of scripts in 'scripts/backup' directory
     script_list = list_files('scripts/backup/')
@@ -74,13 +76,23 @@ def restore_saved_data():
             custom_print(f"[+] script {script_path} ran successfully")
 
 if __name__ == '__main__':
+    # Clearing the screen
+    os.system("clear")
+
     # Checking if the script is run as root
     if os.geteuid() != 0:
         custom_print("[-] Run the program as root user.")
         exit()
+
+    # Open a log file for writing logs
+    try :
+        fp = open('logs/logs', 'w')
+    except:
+        print("[-] log directory not found")
+        print("[+] creating log directory")
+        os.system("mkdir logs")
+        fp = open('logs/logs', 'w')
     
-    # Clearing the screen
-    os.system("clear")
     
     # Writing current date and time to log file
     fp.write(datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
