@@ -3,9 +3,11 @@ current_dir=$(pwd)
 owner=$(echo "$current_dir" | cut -d '/' -f3)
 
 curr_path="/home/$owner"
+destination="data/dir"
+directories=("Desktop" "Documents" "common" "Downloads")
 
-sudo rsync -a --info=progress2 "$curr_path/Desktop" data/dir/
-sudo rsync -a --info=progress2 "$curr_path/Documents" data/dir/
-sudo rsync -a --info=progress2 "$curr_path/common" data/dir/
-sudo rsync -a --info=progress2 "$curr_path/Downloads" data/dir/
+for dir in "${directories[@]}"; do
+    sudo rsync -a --info=progress2 "$curr_path/$dir" "$destination/"
+done
+
 
